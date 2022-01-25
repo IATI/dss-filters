@@ -85,4 +85,5 @@ jobs:
       environment: 'dev'
       filepath: './codelists.json'
       rediskey: 'dssCodelists'
+    secrets:
       DEFAULT_KEY: ${{ secrets.DEV_CACHER_DEFAULT_KEY }}
