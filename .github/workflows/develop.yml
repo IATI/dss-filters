@@ -51,10 +51,9 @@ jobs:
             git push origin develop
           fi
 
-  cache-codelist-rules:
+  cache-filters:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }} # only push to the redis cache on PUSH
     steps:
       - uses: actions/checkout@v2
         with:
@@ -79,10 +78,11 @@ jobs:
             exit 1
           fi
 
-      - name: Cache codelists
-        uses: IATI/.github/.github/workflows/cache_redis.yaml@main
-        with:
-          environment: 'dev'
-          filepath: './codelists.json'
-          rediskey: 'dssCodelists'
-          DEFAULT_KEY: ${{ env.DEFAULT_KEY }}
+  cache-codelist:
+    needs: build 
+    uses: IATI/.github/.github/workflows/cache_redis.yaml@main
+    with:
+      environment: 'dev'
+      filepath: './codelists.json'
+      rediskey: 'dssCodelists'
+      DEFAULT_KEY: ${{ env.DEFAULT_KEY }}
