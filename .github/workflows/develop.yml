@@ -78,3 +78,11 @@ jobs:
             cat curl_out.txt
             exit 1
           fi
+
+      - name: Cache codelists
+        uses: IATI/.github/.github/workflows/cache_redis.yaml@main
+        with:
+          environment: 'dev'
+          filepath: './codelists.json'
+          rediskey: 'dssCodelists'
+          DEFAULT_KEY: ${{ env.DEFAULT_KEY }}
