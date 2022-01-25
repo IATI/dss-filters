@@ -1,13 +1,10 @@
 name: Gen_Filters_And_Cache
 
-env:
-  DEFAULT_KEY: ${{ secrets.DEV_CACHER_DEFAULT_KEY }} # Azure Functions default API Key for Redis-cacher
-
 on:
   workflow_dispatch:
   push:
     paths-ignore: 
-      - '**/README.md' # don't run on README.rst file updates anywhere in repo
+      - '**/README.md' # don't run on README file updates anywhere in repo
     branches: [develop]
 
 jobs:
@@ -31,10 +28,6 @@ jobs:
       - name: "Generate Filters"
         run: ./genFilters.sh
 
-      - name: "Check Results"
-        run: |
-          ls -lah *.json
-
       - name: 'Setup git config'
         run: |
           git config user.name "GitHub Actions Bot"
@@ -52,33 +45,16 @@ jobs:
           fi
 
   cache-filters:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
-          fetch-depth: 0
-
-      - name: POST filters.json to func-iati-redis-cacher-dev
-        run: | 
-          FILE_COMMIT_SHA=$(git log -1 --format='%H' -- './filters.json')
-          echo $FILE_COMMIT_SHA
-          HTTP_CODE=$(curl --write-out "%{http_code}\n" \
-          --location --request POST 'https://func-iati-redis-cacher-dev.azurewebsites.net/api/pvt/cache?key=dssFilters&commitsha='$FILE_COMMIT_SHA \
-          --header 'x-functions-key: '$DEFAULT_KEY \
-          --header 'Content-Type: application/json' \
-          --data-binary '@./filters.json' \
-          --output curl_out.txt \
-          --silent )
-          echo $HTTP_CODE
-          if [[ $HTTP_CODE != '200' ]] ; then
-            echo "Reponse is not 200 from func-iati-redis-cacher-dev, check error logs"
-            cat curl_out.txt
-            exit 1
-          fi
-
-  cache-codelist:
+    needs: build 
+    uses: IATI/.github/.github/workflows/cache_redis.yaml@main
+    with:
+      environment: 'dev'
+      filepath: './filters.json'
+      rediskey: 'dssFilters'
+    secrets:
+      DEFAULT_KEY: ${{ secrets.DEV_CACHER_DEFAULT_KEY }}
+    
+  cache-codelists:
     needs: build 
     uses: IATI/.github/.github/workflows/cache_redis.yaml@main
     with:
