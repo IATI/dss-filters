@@ -1,0 +1,4 @@
+[submodule "IATI-Standard-SSOT"]
+	path = IATI-Standard-SSOT
+	url = git@github.com:IATI/IATI-Standard-SSOT.git
+	branch = feat/gen-dss-filter-config
