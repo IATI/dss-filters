@@ -28,7 +28,7 @@ git commit -m "update submodule"
 
 [Datastore Search](https://github.com/IATI/datastore-search) requests these files through the APIM instance. The APIM instance is configured with routes to request these directly from 
 
-- https://raw.githubusercontent.com/IATI/dss-filters/<branch>/codelists.json
-- https://raw.githubusercontent.com/IATI/dss-filters/<branch>/codelists.json
+- `https://raw.githubusercontent.com/IATI/dss-filters/<branch>/codelists.json`
+- `https://raw.githubusercontent.com/IATI/dss-filters/<branch>/codelists.json`
 
 This allows for the integrated caching in APIM to be utilised.
