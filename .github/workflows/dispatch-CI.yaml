@@ -49,6 +49,8 @@ jobs:
           MESSAGE='updated by GitHub Actions triggered by '$TRIGGERED_BY
           git commit -m "$MESSAGE"
           git push origin "$PR_BRANCH"
+          gh --version
+          GH_DEBUG=api gh api graphql -f query='{organization(login:"iati"){team(slug:"devs"){slug,id}}}'
           gh pr create --base=develop \
           --title "Filter Update" \
           --body "$MESSAGE" \
