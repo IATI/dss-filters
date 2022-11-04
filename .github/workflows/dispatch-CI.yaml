@@ -1,0 +1,58 @@
+name: dispatch-CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        required: true
+        description: 'Triggering Repo or User if manual'
+      sha:
+        required: true
+        description: 'Triggering SHA or branch name if manual'
+
+jobs:
+  build-pr:
+    env:
+      PR_BRANCH: 'update/${{ inputs.sha }}'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: 'Setup git config'
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Create feature branch
+        run: |
+          git checkout -b "$PR_BRANCH"
+
+      - name: Update submodules
+        run: |
+          git submodule update --init --recursive
+          git submodule update --remote    
+      
+      - name: Run filter generation script
+        run: |
+          ./genFilters.sh   
+
+      - name: Diff and create PR from changes if necessary
+        run: |         
+          RESP=$(git add IATI-Standard-SSOT codelists.json filters.json -v)
+          if [[ $RESP == "" ]]; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          TRIGGERED_BY='repo/user:'$TRIGGER_REPO' sha/branch:'$TRIGGER_SHA
+          MESSAGE='updated by GitHub Actions triggered by '$TRIGGERED_BY
+          git commit -m "$MESSAGE"
+          git push origin "$PR_BRANCH"
+          gh pr create --base=develop \
+          --title "Filter Update" \
+          --body "$MESSAGE" 
+        env:
+          GITHUB_TOKEN: ${{ secrets.IATI_BOT_PAT }}
+          TRIGGER_REPO: ${{ inputs.repo }}
+          TRIGGER_SHA: ${{ inputs.SHA }}
