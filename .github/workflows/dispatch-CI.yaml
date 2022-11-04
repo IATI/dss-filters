@@ -5,10 +5,10 @@ on:
     inputs:
       repo:
         required: true
-        description: 'Triggering Repo'
+        description: 'Triggering Repo or User if manual'
       sha:
         required: true
-        description: 'Triggering SHA'
+        description: 'Triggering SHA or branch name if manual'
 
 jobs:
   build-pr:
@@ -45,7 +45,7 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          TRIGGERED_BY=$TRIGGER_REPO' '$TRIGGER_SHA
+          TRIGGERED_BY='repo/user:'$TRIGGER_REPO' sha/branch:'$TRIGGER_SHA
           MESSAGE='updated by GitHub Actions triggered by '$TRIGGERED_BY
           git commit -m "$MESSAGE"
           git push origin "$PR_BRANCH"
