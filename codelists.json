@@ -2603,6 +2603,12 @@
         "status": "active"
       },
       {
+        "code": "21508",
+        "category": "21000",
+        "name": "Sustainable Energy for All",
+        "status": "active"
+      },
+      {
         "code": "22000",
         "category": "20000",
         "name": "Donor country-based NGO",
@@ -3097,6 +3103,12 @@
         "category": "41300",
         "name": "International Agency for Research on Cancer",
         "status": "active"
+      },
+      {
+        "code": "41200",
+        "category": "41000",
+        "name": "UN entities (core contributions reportable in TOSSD only)",
+        "status": "withdrawn"
       },
       {
         "code": "41300",
@@ -6272,7 +6284,7 @@
       },
       {
         "code": "389",
-        "name": "North & Central America, regional",
+        "name": "Caribbean & Central America, regional",
         "status": "active"
       },
       {
@@ -15787,6 +15799,13 @@
         "category": "H",
         "name": "Recognised refugees",
         "description": "Costs incurred in donor countries for basic assistance to refugees with a recognised status. This category only includes costs after recognition (or after date of entry into a country through a resettlement programme).",
+        "status": "active"
+      },
+      {
+        "code": "H06",
+        "category": "H",
+        "name": "Refugees and asylum seekers in other provider countries",
+        "description": "Costs incurred in other non-ODA eligible provider countries for basic assistance to asylum seekers and refugees from developing countries, up to 12 months. The host and origin country of refugees/asylum seekers shall be specified in one of the descriptive fields of the CRS (fields 14 or 19).",
         "status": "active"
       }
     ]
