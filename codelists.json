@@ -13871,6 +13871,13 @@
         "status": "active"
       },
       {
+        "code": "4",
+        "url": "https://europa.eu/capacity4dev/joint-programming/documents/tei-codes-0",
+        "name": "Team Europe Initiatives",
+        "description": "A value from the list of Team Europe Initiatives. Team Europe consists of the European Commission, the EU Member States \u2014 including their implementing agencies and public development banks \u2014 as well as the European Investment Bank (EIB) and the European Bank for Reconstruction and Development (EBRD).",
+        "status": "active"
+      },
+      {
         "code": "99",
         "name": "Reporting Organisation",
         "status": "active"
