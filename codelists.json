@@ -13884,6 +13884,13 @@
         "status": "active"
       },
       {
+        "code": "5",
+        "url": "https://www.gafs.info/",
+        "name": "Global Food and Nutrition Security (GFNS) Preparedness Plan (PP)",
+        "description": "A two-digit ISO code corresponding to a country that has an active Global Food and Nutrition Security (GFNS) Preparedness Plan (PP).",
+        "status": "active"
+      },
+      {
         "code": "99",
         "name": "Reporting Organisation",
         "status": "active"
