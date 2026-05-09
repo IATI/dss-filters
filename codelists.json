@@ -4761,6 +4761,12 @@
         "status": "active"
       },
       {
+        "code": "A4",
+        "name": "FTS Flow ID",
+        "description": "Identifier assigned by UN-OCHA once the flow has been curated and published in FTS (https://fts.unocha.org/)",
+        "status": "active"
+      },
+      {
         "code": "A9",
         "name": "Other Activity Identifier",
         "status": "active"
